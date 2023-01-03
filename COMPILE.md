@@ -20,7 +20,7 @@ To use the library, you can do either of the following:
 The source code are written in standard C/C++, so they should compile on any platform that supports C/C++;
 - Or follow the steps below to generate dynamic/static libraries under different environments.
 ### Windows 10 with Visual Studio 2019
-  0. Set up OpenCV with 4.51+ version.
+  0. Set up OpenCV with 4.51+ version. 
   1. Download libfacedetection and then run powershell terminal <ins>as administrator</ins>:
 
             cd libfacedetection
@@ -31,6 +31,7 @@ The source code are written in standard C/C++, so they should compile on any pla
             cmake --build . --config Release --target install
 
       Dynamic library(facedetection.dll) is generated. Then, to generate static library(lib), you need to set the parameter `BUILD_SHARED_LIBS` to `OFF` with the above commands.
+      If you want to build pybind11 result: Upgrade cmake > 3.11, and optionally change GIT of pybind11 to SOURCE_DIR, and then add `-DPYBIND11_FINDPYTHON=ON` (or add -DPYTHON_EXECUTABLE=$(which python) to your CMake configure line. (Replace $(which python) with a path to python if your prefer). Collect `__init__.py` and `pylibfacedetection.so` to a new folder `pylibfacedetection`.
   2. To deploy the facedetection libraries in a Visual Studio C++ console app, in your console application's property pages, <ins>under Release mode</ins> (because the build type is Release), add the path of your `libfacedetection\build\install\include\facedetection` to VC++ Directories -> Include Directories and the path of your `libfacedetection\build\install\lib` to VC++ Directories -> Library Directories, and add `facedetection.lib` to Linker -> Input -> Additional Dependencies.
 
   3. Add `#include "facedetectcnn.h"` to your source files. See [code example built with Visual Studio](#visual-studio-example).
